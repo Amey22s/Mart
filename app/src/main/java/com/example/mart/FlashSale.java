@@ -1,12 +1,17 @@
 package com.example.mart;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +28,11 @@ public class FlashSale extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    RecyclerView itemRV1,itemRV2,itemRV3,itemRV4;
+    ArrayList<ItemModel> itemModelArrayList;
+    Context con = getActivity();
+    View test1view;
 
     public FlashSale() {
         // Required empty public constructor
@@ -59,6 +69,53 @@ public class FlashSale extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_flash_sale, container, false);
+        test1view = inflater.inflate(R.layout.fragment_flash_sale, container, false);
+
+
+        itemRV1 = test1view.findViewById(R.id.RecyclerHome);
+        itemRV2 = test1view.findViewById(R.id.RecyclerHome1);
+        itemRV3 = test1view.findViewById(R.id.RecyclerHome2);
+        itemRV4 = test1view.findViewById(R.id.RecyclerHome3);
+
+
+        // here we have created new array list and added data to it.
+        itemModelArrayList = new ArrayList<>();
+        itemModelArrayList.add(new ItemModel("Parle G Rs 5", "Most eco biscuit XD",5, R.drawable.ic_cart));
+        itemModelArrayList.add(new ItemModel("MarieGold Rs 10", "Decent eco biscuit XD",4, R.drawable.ic_orders));
+        itemModelArrayList.add(new ItemModel("Goodday Rs 25", "Special ocassion biscuit XD",3, R.drawable.ic_star));
+        itemModelArrayList.add(new ItemModel("Dark Fantasy Rs 50", "Ameero ke shauk XD",1, R.drawable.ic_remove));
+        itemModelArrayList.add(new ItemModel("Dark Fantasy Rs 50", "Mehenga hai par le le :)",1, R.drawable.ic_remove));
+        itemModelArrayList.add(new ItemModel("Dark Fantasy Rs 50", "Kya kanjoosi karra h le le!!",1, R.drawable.ic_remove));
+        itemModelArrayList.add(new ItemModel("Dark Fantasy Rs 45", "10 takka off chal.",1, R.drawable.ic_remove));
+        itemModelArrayList.add(new ItemModel("Dark Fantasy Rs 40", "Tere liye khaas 20 takka off <3",1, R.drawable.ic_remove));
+        itemModelArrayList.add(new ItemModel("Dark Fantasy Rs 25", "Ab isse kamm nhi hoga thike.",1, R.drawable.ic_remove));
+        itemModelArrayList.add(new ItemModel("Dark Fantasy Rs 0", "Ab toh le le free hai ab toh",1, R.drawable.ic_remove));
+        itemModelArrayList.add(new ItemModel("Dark Fantasy", "Chchod bhai tu logout kar tere se na ho payega!",1, R.drawable.ic_remove));
+
+
+        // we are initializing our adapter class and passing our arraylist to it.
+        ItemAdapter itemAdapter = new ItemAdapter(getActivity(), itemModelArrayList);
+
+        // below line is for setting a layout manager for our recycler view.
+        // here we are creating vertical list so we will provide orientation as vertical
+        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager linearLayoutManager3 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager linearLayoutManager4 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+
+        // in below two lines we are setting layoutmanager and adapter to our recycler view.
+        itemRV1.setLayoutManager(linearLayoutManager1);
+        itemRV1.setAdapter(itemAdapter);
+
+        itemRV2.setLayoutManager(linearLayoutManager2);
+        itemRV2.setAdapter(itemAdapter);
+
+        itemRV3.setLayoutManager(linearLayoutManager3);
+        itemRV3.setAdapter(itemAdapter);
+
+        itemRV4.setLayoutManager(linearLayoutManager4);
+        itemRV4.setAdapter(itemAdapter);
+
+        return test1view;
     }
 }

@@ -1,12 +1,17 @@
 package com.example.mart;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +28,11 @@ public class NewArrivals extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    RecyclerView itemRV;
+    ArrayList<ItemModel> itemModelArrayList;
+    Context con = getActivity();
+    View testview;
 
     public NewArrivals() {
         // Required empty public constructor
@@ -59,6 +69,37 @@ public class NewArrivals extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new_arrivals, container, false);
+        testview = inflater.inflate(R.layout.fragment_new_arrivals, container, false);
+
+
+        itemRV = testview.findViewById(R.id.RecyclerHome);
+
+        // here we have created new array list and added data to it.
+        itemModelArrayList = new ArrayList<>();
+        itemModelArrayList.add(new ItemModel("Parle G Rs 5", "Most eco biscuit XD",5, R.drawable.ic_cart));
+        itemModelArrayList.add(new ItemModel("MarieGold Rs 10", "Decent eco biscuit XD",4, R.drawable.ic_orders));
+        itemModelArrayList.add(new ItemModel("Goodday Rs 25", "Special ocassion biscuit XD",3, R.drawable.ic_star));
+        itemModelArrayList.add(new ItemModel("Dark Fantasy Rs 50", "Ameero ke shauk XD",1, R.drawable.ic_remove));
+        itemModelArrayList.add(new ItemModel("Dark Fantasy Rs 50", "Mehenga hai par le le :)",1, R.drawable.ic_remove));
+        itemModelArrayList.add(new ItemModel("Dark Fantasy Rs 50", "Kya kanjoosi karra h le le!!",1, R.drawable.ic_remove));
+        itemModelArrayList.add(new ItemModel("Dark Fantasy Rs 45", "10 takka off chal.",1, R.drawable.ic_remove));
+        itemModelArrayList.add(new ItemModel("Dark Fantasy Rs 40", "Tere liye khaas 20 takka off <3",1, R.drawable.ic_remove));
+        itemModelArrayList.add(new ItemModel("Dark Fantasy Rs 25", "Ab isse kamm nhi hoga thike.",1, R.drawable.ic_remove));
+        itemModelArrayList.add(new ItemModel("Dark Fantasy Rs 0", "Ab toh le le free hai ab toh",1, R.drawable.ic_remove));
+        itemModelArrayList.add(new ItemModel("Dark Fantasy", "Chchod bhai tu logout kar tere se na ho payega!",1, R.drawable.ic_remove));
+
+
+        // we are initializing our adapter class and passing our arraylist to it.
+        ItemAdapter itemAdapter = new ItemAdapter(getActivity(), itemModelArrayList);
+
+        // below line is for setting a layout manager for our recycler view.
+        // here we are creating vertical list so we will provide orientation as vertical
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+
+        // in below two lines we are setting layoutmanager and adapter to our recycler view.
+        itemRV.setLayoutManager(linearLayoutManager);
+        itemRV.setAdapter(itemAdapter);
+
+        return testview;
     }
 }
