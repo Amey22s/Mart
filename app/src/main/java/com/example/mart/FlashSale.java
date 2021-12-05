@@ -11,6 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.ArrayList;
 
 /**
@@ -24,6 +32,8 @@ public class FlashSale extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String url = "https://mobileapp25.blob.core.windows.net/json/item_data1.json";
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -79,7 +89,7 @@ public class FlashSale extends Fragment {
 
 
         // here we have created new array list and added data to it.
-        itemModelArrayList = new ArrayList<>();
+      /*  itemModelArrayList = new ArrayList<>();
         itemModelArrayList.add(new ItemModel("Parle G Rs 5", "Most eco biscuit XD",5, R.drawable.ic_cart));
         itemModelArrayList.add(new ItemModel("MarieGold Rs 10", "Decent eco biscuit XD",4, R.drawable.ic_orders));
         itemModelArrayList.add(new ItemModel("Goodday Rs 25", "Special ocassion biscuit XD",3, R.drawable.ic_star));
@@ -95,6 +105,7 @@ public class FlashSale extends Fragment {
 
         // we are initializing our adapter class and passing our arraylist to it.
         ItemAdapter itemAdapter = new ItemAdapter(getActivity(), itemModelArrayList);
+        */
 
         // below line is for setting a layout manager for our recycler view.
         // here we are creating vertical list so we will provide orientation as vertical
@@ -105,17 +116,37 @@ public class FlashSale extends Fragment {
 
         // in below two lines we are setting layoutmanager and adapter to our recycler view.
         itemRV1.setLayoutManager(linearLayoutManager1);
-        itemRV1.setAdapter(itemAdapter);
 
         itemRV2.setLayoutManager(linearLayoutManager2);
-        itemRV2.setAdapter(itemAdapter);
 
         itemRV3.setLayoutManager(linearLayoutManager3);
-        itemRV3.setAdapter(itemAdapter);
 
         itemRV4.setLayoutManager(linearLayoutManager4);
-        itemRV4.setAdapter(itemAdapter);
 
+
+        StringRequest request = new StringRequest(url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                GsonBuilder gsonBuilder = new GsonBuilder();
+                Gson gson = gsonBuilder.create();
+                Item []items = gson.fromJson(response,Item[].class);
+
+                itemRV1.setAdapter(new ItemAdapter(getActivity(),items));
+                itemRV2.setAdapter(new ItemAdapter(getActivity(),items));
+                itemRV3.setAdapter(new ItemAdapter(getActivity(),items));
+                itemRV4.setAdapter(new ItemAdapter(getActivity(),items));
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        queue.add(request);
         return test1view;
     }
 }

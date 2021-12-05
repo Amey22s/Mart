@@ -12,25 +12,31 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.text.BreakIterator;
 import java.util.ArrayList;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.Viewholder> {
-
+    private static final String baseurl = "https://mobileapp25.blob.core.windows.net/images/";
     private Context context;
-    private ArrayList<ItemModel> itemModelArrayList;
+    Item []itemslist;
 
-    // Constructor
-    public ItemAdapter(Context context, ArrayList<ItemModel> itemModelArrayList) {
+    public ItemAdapter(Context context, Item[] itemslist) {
         this.context = context;
-        this.itemModelArrayList = itemModelArrayList;
+        this.itemslist = itemslist;
     }
+
+
 
     @NonNull
     @Override
     public ItemAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // to inflate the layout for each item of recycler view.
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_cardview_layout, parent, false);
+
+
+
         return new Viewholder(view);
     }
 
@@ -39,18 +45,20 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.Viewholder> {
     @Override
     public void onBindViewHolder(@NonNull ItemAdapter.Viewholder holder, int position) {
         // to set data to textview and imageview of each card layout
-        ItemModel model = itemModelArrayList.get(position);
-        holder.itemName.setText(model.getItem_name());
-        holder.itemDescription.setText(model.getItem_description());
-        holder.itemRating.setText("" + model.getItem_rating());
-        holder.itemImage.setImageResource(model.getItem_image());
+
+        Item item = itemslist[position];
+        holder.itemName.setText(item.getName());
+        holder.itemDescription.setText(item.getDescription());
+        holder.itemRating.setText(item.getRating().toString());
+        Glide.with(holder.itemImage.getContext()).load(baseurl+item.getImage()).into(holder.itemImage);
+
     }
 
     @Override
     public int getItemCount() {
         // this method is used for showing number
         // of card items in recycler view.
-        return itemModelArrayList.size();
+        return itemslist.length;
     }
 
     // View holder class for initializing of

@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                         frag = new Logout();
                         break;
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_con,frag).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_con,frag).addToBackStack("my fragment").commit();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 animatefab();
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_con,new Cart()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_con,new Cart()).addToBackStack("my fragment").commit();
 
             }
 
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 animatefab();
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_con,new Settings()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_con,new Settings()).addToBackStack("my fragment").commit();
             }
 
         });
@@ -167,7 +167,14 @@ public class MainActivity extends AppCompatActivity {
             drawerLayout.closeDrawers();
             return;
         }
-        super.onBackPressed();
+
+        if(getFragmentManager().getBackStackEntryCount()>0)
+        {
+            getFragmentManager().popBackStack();
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
