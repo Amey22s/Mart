@@ -1,0 +1,34 @@
+Shopping Android App (It is a work in progress).
+
+This is a simple Android app for online shopping. It allows users to browse and purchase products from various categories.
+
+Features:
+
+User Registration: Users can create an account and log in to access the app.
+Product Categories: The app offers a wide range of product categories for users to explore.
+Product Listings: Users can view detailed information about each product, including images, descriptions, prices, and user reviews.
+Search Functionality: Users can search for products by name, category, or keywords.
+Shopping Cart: Users can add products to their shopping cart and manage their cart contents.
+Checkout Process: Users can proceed to checkout, enter shipping and payment information, and place orders.
+Order History: Users can view their order history and track the status of their deliveries.
+
+Technologies Used:
+
+Android SDK
+Java
+XML
+Firebase Authentication: Used for user registration and login.
+Firebase Realtime Database: Used for storing product information, user data, and order details.
+
+Contributing:
+
+Contributions to the project are welcome. If you find any issues or have suggestions for improvements, please submit a pull request or open an issue in the GitHub repository.
+
+License:
+
+This project is licensed under the MIT License. You are free to modify, distribute, and use the code for personal and commercial purposes.
+
+Contact:
+
+For any inquiries or feedback, please contact us at parab.amey@northeastern.edu
+Feel free to customize this README file according to your specific shopping Android app's features, technologies used, and other relevant information.
